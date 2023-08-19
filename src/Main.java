@@ -1,26 +1,47 @@
+import Recursividad.Division;
+import Recursividad.Factorial;
+import Recursividad.Sumatoria;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int num1, num2, num3;
-        Scanner escaner = new Scanner(System.in);
+        Division act1 = new Division();
+        Sumatoria act2 = new Sumatoria();
+        Factorial act3 = new Factorial();
 
-        System.out.print("Ingrese el primer número: ");
-        num1 = escaner.nextInt();
-        System.out.print("Ingrese el segundo número: ");
-        num2 = escaner.nextInt();
-        System.out.print("Ingrese el tercer número: ");
-        num3 = escaner.nextInt();
+        //Actividad 1
+        System.out.println("Actividad 1 - division");
+        int numeradorInt = 11;
+        int denominadorInt = 2;
+        int act1Recur = act1.dividir(numeradorInt, denominadorInt);
+        System.out.println(act1Recur);
 
-        if ((num1 < num2) && (num1 < num3)) {
-            if (num2 < num3) System.out.print(num1 + " " + num2 + " " + num3);
-            else System.out.print(num1 + " " + num3 + " " + num2);
-        } else if ((num2 < num1) && (num2 < num3)) {
-            if (num1 < num3) System.out.print(num2 + " " + num1 + " " + num3);
-            else System.out.print(num2 + " " + num3 + " " + num1);
-        } else if ((num3 < num1) && (num3 < num2)) {
-            if (num1 < num2) System.out.print(num3 + " " + num1 + " " + num2);
-            else System.out.print(num3 + " " + num2 + " " + num1);
-        } else System.out.print(num1 + " " + num2 + " " + num3);
+        double numeradorDouble = 11.0;
+        double denominadorDouble = 2.0;
+        double act1Iter = act1.dividir(numeradorDouble, denominadorDouble);
+        System.out.println(act1Iter);
+
+
+        //Actividad 2
+        System.out.println("\nActividad 2 - sumatoria");
+        int numInt = 4;
+        int act2Recur = act2.sumar(numInt);
+        System.out.println(act2Recur);
+
+        double numDouble = 4;
+        double act2Iter = act2.sumar(numDouble);
+        System.out.println(act2Iter);
+
+
+        //Actividad 3
+        System.out.println("\nActividad 3 - factorial");
+        int num_Int = 5;
+        int act3Recur = act3.hallarFactorial(num_Int);
+        System.out.println(act3Recur);
+
+        double num_Double = 5;
+        double act3Iter = act3.hallarFactorial(num_Double);
+        System.out.println(act3Iter);
     }
 }
