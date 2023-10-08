@@ -4,34 +4,38 @@ import java.sql.*;
 
 public class Estudiantes {
     public static void main(String[] args) {
-        // Datos de conexión a la base de datos (ajusta estos valores según tu configuración)
-        String url = "jdbc:mariadb://localhost:3306/universidad";
+        String url = "jdbc:mysql://localhost:3306/nueva_base_de_datos";
         String usuario = "root";
         String pass = "";
 
 
         try {
-            // Establecer la conexión a la base de datos
             Connection conexion = DriverManager.getConnection(url, usuario, pass);
-
-
-            // Crear una declaración SQL
-            Statement statement = conexion.createStatement();
-
-
-            // Ejecutar una consulta para obtener todos los datos de estudiantes
             String consulta = "SELECT * FROM estudiantes";
-            ResultSet resultado = statement.executeQuery(consulta);
+            PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            mostrarTabla(conexion);
 
+            resultSet.close();
+            preparedStatement.close();
+            conexion.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-            // Iterar a través de los resultados y mostrarlos por consola
-            while (resultado.next()) {
-                int id = resultado.getInt("id");
-                String nombre = resultado.getString("nombre");
-                String apellido = resultado.getString("apellido");
-                String legajo = resultado.getString("legajo");
-                String dni = resultado.getString("dni");
+    public static void mostrarTabla(Connection conexion) {
+        try {
+            String consulta = "SELECT * FROM estudiantes";
+            PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nombre = resultSet.getString("nombre");
+                String apellido = resultSet.getString("apellido");
+                int legajo = resultSet.getInt("legajo");
+                int dni = resultSet.getInt("dni");
 
                 System.out.println("ID: " + id);
                 System.out.println("Nombre: " + nombre);
@@ -39,13 +43,8 @@ public class Estudiantes {
                 System.out.println("Legajo: " + legajo);
                 System.out.println("DNI: " + dni);
                 System.out.println("-----------------------");
+
             }
-
-
-            // Cerrar la conexión y recursos
-            resultado.close();
-            statement.close();
-            conexion.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
